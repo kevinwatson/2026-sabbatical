@@ -119,6 +119,29 @@
             z-index: 2;
         }
 
+        /* Multiple Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+        }
+
+        .timeline-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+            background-color: #eee;
+            cursor: pointer;
+        }
+
+        .timeline-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
         .date-badge {
             display: inline-block;
             background: var(--primary-color);
@@ -213,7 +236,10 @@
                 date: "Saturday, Oct 3",
                 title: "Flight to Seattle",
                 desc: "We flew into Seattle the night before.",
-                image: "images/alaska-flight-to-seattle.PNG"
+                images: [
+                    "images/alaska-flight-to-seattle.PNG",
+                    "images/ENCORE7SEAJNUSGYKTNVICSEA.JPG"
+                ]
             },
             {
                 date: "Sunday, Oct 4",
@@ -259,9 +285,38 @@
             const eventCard = document.createElement('div');
             eventCard.className = `event ${isSpacer ? 'spacer' : ''}`;
 
-            const imageHtml = `
-                <div class="event-image" style="background-image: url('${item.image}');"></div>
-            `;
+            // Handle multiple images or single image
+            const hasMultipleImages = Array.isArray(item.images) && item.images.length > 0;
+            
+            if (hasMultipleImages) {
+                // Render multiple images in a grid
+                const grid = document.createElement('div');
+                grid.className = 'image-grid';
+                item.images.forEach(imgSrc => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.className = 'timeline-image';
+                    img.style.width = '100%';
+                    img.style.height = '200px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '6px';
+                    img.style.cursor = 'pointer';
+                    grid.appendChild(img);
+                });
+                
+                imageHtml = grid.outerHTML;
+            } else {
+                // Render single image
+                const imgHtml = document.createElement('img');
+                imgHtml.src = item.image;
+                imgHtml.className = 'timeline-image';
+                imgHtml.style.width = '100%';
+                imgHtml.style.height = '200px';
+                imgHtml.style.objectFit = 'cover';
+                imgHtml.style.borderRadius = '6px';
+                imgHtml.style.cursor = 'pointer';
+                imageHtml = imgHtml.outerHTML;
+            }
 
             eventCard.innerHTML = `
                 <div class="date-badge">${item.date}</div>
