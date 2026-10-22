@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Family Timeline</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --bg-color: #f9f9f9;
+            --line-color: #dfe6e9;
+            --text-color: #2d3436;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        header {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #636e72;
+        }
+
+        /* Timeline Wrapper */
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* The vertical line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%; /* Center line */
+            width: 4px;
+            background: var(--line-color);
+            transform: translateX(-50%);
+        }
+
+        /* Event Container */
+        .event {
+            padding: 10px 40px;
+            position: relative;
+            margin-bottom: 30px;
+            background-color: transparent;
+        }
+
+        /* Even/Left side */
+        .event:after {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12.5%; /* Half of container width */
+            background-color: var(--card-bg);
+            border: 4px solid var(--primary-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* Odd/Right side */
+        .event:not(:last-child):after {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            left: -12.5%; /* Half of container width */
+            background-color: var(--card-bg);
+            border: 4px solid var(--primary-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* The Card Content */
+        .event-content {
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 450px; /* Keep card size manageable */
+            position: relative;
+            z-index: 2;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .event h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .event .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            background-color: #eee;
+            background-image: url('https://via.placeholder.com/600x400?text=No+Image+Yet');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .event p {
+            color: #636e72;
+            font-size: 0.95rem;
+        }
+
+        /* Spacer for zigzag */
+        .event-content.spacer {
+            display: none; 
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            .timeline::before {
+                left: 15px; /* Line moves to the left for single column */
+            }
+            
+            .event {
+                padding-left: 50px;
+                padding-right: 0;
+            }
+            
+            .event-content.spacer {
+                display: none; /* Hide right sides on mobile */
+            }
+
+            .event:after, .event:not(:last-child):after {
+                left: 6px; /* Dot moves to line */
+                right: auto;
+            }
+
+            header h1 { font-size: 2rem; }
+        }
+
+        /* Print Styles */
+        @media print {
+            header { display: none; }
+            .timeline::before { background: #ddd; }
+            .event-content { 
+                box-shadow: none; 
+                border-left: 4px solid #6c5ce7;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Our Family History</h1>
+        <p>Happy Memories | First Met (2010) - Vacation (2023)</p>
+    </header>
+
+    <div class="timeline" id="timeline-container">
+        <!-- Items will be inserted here via JavaScript -->
+    </div>
+
+    <script>
+        // --- EDIT YOUR DATA HERE ---
+        const timelineEvents = [
+            {
+                date: "June 15, 2010",
+                title: "First Meet",
+                desc: "This is where our family's modern story began. A chance encounter at the local library.",
+                image: "https://images.unsplash.com/photo-1511632765834-409f530a8c9f?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                date: "August 2, 2012",
+                title: "The Great BBQ",
+                desc: "The legendary day at my dad's house. We shared burgers and the recipe was a hit!",
+                image: "https://images.unsplash.com/photo-1541959665267-5727445f42ea?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                date: "May 20, 2015",
+                title: "Wine & Cheese Night",
+                desc: "Spending the weekend at the cabin. The sunset view was simply breathtaking.",
+                image: "https://images.unsplash.com/photo-1516252533140-6d454f190065?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                date: "December 10, 2017",
+                title: "The Anniversary Trip",
+                desc: "Traveling to the mountains. Finding new traditions and walking hand in hand.",
+                image: "https://images.unsplash.com/photo-1525206531697-e87d3e644b05?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                date: "January 01, 2020",
+                title: "New Year's Eve",
+                desc: "Watching the fireworks together. The best night of the year.",
+                image: "https://images.unsplash.com/photo-1492486863357-4e13f163f1d6?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                date: "June 05, 2023",
+                title: "Last Vacation",
+                desc: "A recent trip that we are planning to re-live in our summer by us.",
+                image: "https://images.unsplash.com/photo-1524623305187-e3472966c606?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        // --- GENERATE TIMELINE ---
+
+        const container = document.getElementById('timeline-container');
+
+        timelineEvents.forEach((item, index) => {
+            // Add class 'spacer' to create the zigzag effect
+            // 'spacer' is added to every item EXCEPT the first one, AND the last one.
+            const isSpacer = index > 0 && index < timelineEvents.length - 1;
+
+            const eventCard = document.createElement('div');
+            eventCard.className = `event ${isSpacer ? 'spacer' : ''}`;
+
+            const imageHtml = `
+                <div class="event-image" style="background-image: url('${item.image}');"></div>
+            `;
+
+            eventCard.innerHTML = `
+                <div class="date-badge">${item.date}</div>
+                <div class="event-content">
+                    ${imageHtml}
+                    <h3>${item.title}</h3>
+                    <p>${item.desc}</p>
+                </div>
+            `;
+
+            container.appendChild(eventCard);
+        });
+
+    </script>
+</body>
+</html>
+
