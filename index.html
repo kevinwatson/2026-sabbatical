@@ -99,13 +99,17 @@
             transform: translateX(-50%);
         }
 
-        /* Event Container */
+        /* Event Container - center layout without side markers */
         .event {
             padding: 10px 40px;
             position: relative;
             margin-bottom: 30px;
             background-color: transparent;
+            /* Hide left and right circles - using only the vertical line */
+            z-index: 2;
         }
+
+        /* Note: All circular markers are hidden; timeline uses only the centered vertical line */
 
         /* Even/Left side */
         .event:after {
