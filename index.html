@@ -119,6 +119,29 @@
             z-index: 2;
         }
 
+        /* Title and Description - top of card */
+        .event-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .event-content p {
+            color: #636e72;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        /* Images below title/description */
+        .event-content > div.image-grid {
+            margin-top: 15px;
+        }
+
+        /* Single image below title/description */
+        .event-content > div.timeline-image {
+            margin-top: 15px;
+        }
+
         /* Multiple Image Grid */
         .image-grid {
             display: grid;
@@ -500,9 +523,9 @@
             eventCard.innerHTML = `
                 <div class="date-badge">${item.date}</div>
                 <div class="event-content">
-                    ${imageHtml}
                     <h3>${item.title}</h3>
                     <p>${item.desc}</p>
+                    ${imageHtml}
                 </div>
             `;
 
