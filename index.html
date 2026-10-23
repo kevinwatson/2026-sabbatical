@@ -29,6 +29,21 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            min-height: 100vh;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Timeline centered on page */
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            flex-grow: 1;
+            align-items: center;
         }
 
         /* Header Section */
@@ -55,8 +70,21 @@
         .timeline {
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
             position: relative;
+            margin-top: 80px;
+        }
+
+        /* Center timeline card content */
+        .timeline .event-content {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        /* Date badge aligned with content */
+        .timeline .event:not(:last-child):after {
+            left: -50%; /* Align with center line */
         }
 
         /* The vertical line */
