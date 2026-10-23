@@ -255,7 +255,7 @@
 
     .modal-image {
         width: 100%;
-        max-width: 600px;
+        max-width: 1200px;
         height: auto;
         border-radius: 6px;
         box-shadow: 0 0 20px rgba(0,0,0,0.5);
@@ -541,7 +541,7 @@
         function openImageModal(source, itemDate, itemTitle) {
             modal.classList.add('active');
             modalImage.src = source;
-            modalCaption.textContent = `${itemTitle} on ${itemDate}`;
+            modalCaption.textContent = `${itemTitle}`;
         }
 
         // Function to close modal
